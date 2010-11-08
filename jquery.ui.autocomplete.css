@@ -1,0 +1,46 @@
+ul.jq-ui-autocomplete {
+    position: absolute;
+    overflow: hidden;
+    background-color: #fff;
+    border: 1px solid #333;
+    margin: 0px;
+    list-style: none;
+    font: normal 11px Tahoma, sans-serif;
+    color: #333;
+    z-index: 20000;
+}
+
+ul.jq-ui-autocomplete li { 
+  display: block; 
+  padding: .3em .5em .3em .3em; 
+  width: 100%;
+  height: 24px;
+  overflow:hidden;
+}
+
+ul.jq-ui-autocomplete li.group {
+  background: #def;
+}
+
+ul.jq-ui-autocomplete li.tag {
+  background: #fff;
+  height: 16px;
+}
+
+ul.jq-ui-autocomplete li.active { 
+  background-color: #06812a; 
+  color: #fff;
+}
+
+ul.jq-ui-autocomplete img {
+  vertical-align: middle;
+  margin-right: 1px;
+}
+
+ul.jq-ui-autocomplete span.login {
+  font-weight: bold;
+}
+
+ul.jq-ui-autocomplete span.name {
+  overflow: hidden;
+}

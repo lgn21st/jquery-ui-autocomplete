@@ -42,14 +42,14 @@
     $.data(document.body, "autocompleteMode", true);
 
     $("body").one("cancel.autocomplete", function() {
-      input.fastTrigger("cancel.autocomplete"); $("body").trigger("off.autocomplete"); input.val(original);
+      input.trigger("cancel.autocomplete"); $("body").trigger("off.autocomplete"); input.val(original);
     });
 
     $("body").one("activate.autocomplete", function() {
       // Try hitting return to activate autocomplete and then hitting it again on blank input
-      // to close it.  w/o checking the active object first this input.fastTrigger() will barf.
-      active && input.fastTrigger("activate.autocomplete", [$.data(active[0], "originalObject")]);
-      $("body").fastTrigger("off.autocomplete");
+      // to close it.  w/o checking the active object first this input.trigger() will barf.
+      active && input.trigger("activate.autocomplete", [$.data(active[0], "originalObject")]);
+      $("body").trigger("off.autocomplete");
     });
 
     $("body").one("off.autocomplete", function(e, reset) {
@@ -60,11 +60,11 @@
     });
 
     // If a click bubbles all the way up to the window, close the autocomplete
-    $(window).bind("click.autocomplete", function() { $("body").fastTrigger("cancel.autocomplete"); });
+    $(window).bind("click.autocomplete", function() { $("body").trigger("cancel.autocomplete"); });
 
     var select = function() {
       active = $("> *", container).removeClass("active").slice(selected, selected + 1).addClass("active");
-      input.fastTrigger("itemSelected.autocomplete", [$.data(active[0], "originalObject")]);
+      input.trigger("itemSelected.autocomplete", [$.data(active[0], "originalObject")]);
       input.val(opt.insertText($.data(active[0], "originalObject")));
     };
 
@@ -74,23 +74,23 @@
       // Set the selected item to the item hovered over and make it active
       selected = $("> *", container).index($(e.target).is('li') ? $(e.target)[0] : $(e.target).parents('li')[0]); select();
     }).bind("click.autocomplete", function(e) {
-      $("body").fastTrigger("activate.autocomplete"); $.data(document.body, "suppressKey", false);
+      $("body").trigger("activate.autocomplete"); $.data(document.body, "suppressKey", false);
     });
 
     input
       .bind("keydown.autocomplete", function(e) {
         var k = e.which || e.keyCode; // in IE e.which is undefined
 
-        if(k == KEY.ESC) { $("body").fastTrigger("cancel.autocomplete"); }
+        if(k == KEY.ESC) { $("body").trigger("cancel.autocomplete"); }
         else if(k == KEY.RETURN) { 
           // cancel autocomplete if there's more than one item in the list and you press
           // enter without selecting
           if(selected == -1) { 
-            $("body").fastTrigger("cancel.autocomplete"); 
+            $("body").trigger("cancel.autocomplete"); 
             return false
           // otherwise, you selected something, so trigger autocomplete
           } else { 
-            $("body").fastTrigger("activate.autocomplete"); 
+            $("body").trigger("activate.autocomplete"); 
             return false
           }}
         else if(k == KEY.UP || k == KEY.TAB || k == KEY.DOWN) {
@@ -112,7 +112,7 @@
 
     opt = $.extend({}, {
       timeout: 1000,
-      getList: function(input) { input.fastTrigger("updateList", [opt.list]); },
+      getList: function(input) { input.trigger("updateList", [opt.list]); },
       template: function(str) { return "<li>" + opt.insertText(str) + "</li>"; },
       insertText: function(str) { return str; },
       match: function(typed) { return this.match(new RegExp(typed)); },
@@ -136,7 +136,7 @@
     function startTypingTimeout(e) {
       $.data(this, "typingTimeout", window.setTimeout(function() {
         if (autocomplete_enabled)
-          $(e.target || e.srcElement).fastTrigger("autocomplete");
+          $(e.target || e.srcElement).trigger("autocomplete");
       }, opt.timeout));
     }
 
@@ -180,7 +180,7 @@
                 return node;
               });
 
-            $("body").fastTrigger("off.autocomplete");
+            $("body").trigger("off.autocomplete");
 
             if(!list.length) return false;
 

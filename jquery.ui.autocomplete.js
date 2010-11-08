@@ -184,7 +184,7 @@
 
             if(!list.length) return false;
 
-            var container = list.wrapAll(opt.wrapper).parents(":last").children();
+            var container = list.wrapAll(opt.wrapper).parents(":last");
             // IE seems to wrap the wrapper in a random div wrapper so
             // drill down to the node in opt.wrapper.
             var wrapper_tagName = $(opt.wrapper)[0].tagName;
